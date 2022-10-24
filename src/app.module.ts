@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { CategoriesModule } from './categories/categories.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ContactoModule } from './contacto/contacto.module';
+import { AyudaModule } from './ayuda/ayuda.module';
+import { TopicoModule } from './topico/topico.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { ContactoModule } from './contacto/contacto.module';
       synchronize: false,
     }),
     ContactoModule,
+    AyudaModule,
+    TopicoModule,
   ],
   controllers: [AppController],
   providers: [AppService],

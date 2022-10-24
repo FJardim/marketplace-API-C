@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateContactoDto } from './dto/create-contacto.dto';
-import { UpdateContactoDto } from './dto/updated-contacto-dto';
+import { UpdateContactoDto } from './dto/updated-contacto.dto';
 import { Contacto } from './entities/contacto.entity';
 import { ContactoNotFoundException } from './error/contacto-not-found.exception';
 
@@ -11,6 +11,17 @@ export class ContactoService {
     constructor(
         @InjectRepository(Contacto) private readonly contactoRepository: Repository<Contacto>
     ) { }
+    async paginate(page: number, perPage: number): Promise<Contacto[]> {
+        const offset = (page - 1) * perPage;
+
+        const contacto = await this.contactoRepository.createQueryBuilder('contacto')
+            .take(perPage)
+            .skip(offset)
+            .getMany();
+
+        return contacto;
+    }
+
     async create(createContactoDto: CreateContactoDto): Promise<Contacto> {
         const contacto = new Contacto(createContactoDto);
         return await this.contactoRepository.save(contacto);
