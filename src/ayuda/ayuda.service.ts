@@ -8,60 +8,65 @@ import { AyudaNotFoundException } from './error/ayuda-not-found.exception';
 
 @Injectable()
 export class AyudaService {
-    constructor(
-        @InjectRepository(Ayuda) private readonly ayudaRepository: Repository<Ayuda>
-    ) { }
-    async paginate(page: number, perPage: number): Promise<Ayuda[]> {
-        const offset = (page - 1) * perPage;
+  constructor(
+    @InjectRepository(Ayuda)
+    private readonly ayudaRepository: Repository<Ayuda>,
+  ) {}
+  async paginate(page: number, perPage: number): Promise<Ayuda[]> {
+    const offset = (page - 1) * perPage;
 
-        const ayuda = await this.ayudaRepository.createQueryBuilder('ayuda')
-            .take(perPage)
-            .skip(offset)
-            .getMany();
+    const ayuda = await this.ayudaRepository
+      .createQueryBuilder('ayuda')
+      .take(perPage)
+      .skip(offset)
+      .getMany();
 
-        return ayuda;
+    return ayuda;
+  }
+
+  async create(createAyudaDto: CreateAyudaDto): Promise<Ayuda> {
+    const ayuda = new Ayuda(createAyudaDto);
+    return await this.ayudaRepository.save(ayuda);
+  }
+
+  async findOne(id: number): Promise<Ayuda> {
+    const ayuda = await this.ayudaRepository
+      .createQueryBuilder('ayuda')
+      .where('ayuda.id = :id', { id })
+      .getOne();
+    console.log({ id, ayuda });
+    if (!ayuda) {
+      throw new AyudaNotFoundException();
     }
 
-    async create(createAyudaDto: CreateAyudaDto): Promise<Ayuda> {
-        const ayuda = new Ayuda(createAyudaDto);
-        return await this.ayudaRepository.save(ayuda);
+    return ayuda;
+  }
+
+  async update(id: number, updateAyudaDto: UpdateAyudaDto): Promise<Ayuda> {
+    const ayuda = await this.ayudaRepository
+      .createQueryBuilder('ayuda')
+      .where('ayuda.id = :id', { id })
+      .getOne();
+
+    if (!ayuda) {
+      throw new AyudaNotFoundException();
     }
 
-    async findOne(id: number): Promise<Ayuda> {
-        const ayuda = await this.ayudaRepository.createQueryBuilder('ayuda')
-            .where('ayuda.id = :id', { id })
-            .getOne();
-        console.log({ id, ayuda })
-        if (!ayuda) {
-            throw new AyudaNotFoundException();
-        }
+    Object.assign(ayuda, updateAyudaDto);
 
-        return ayuda;
+    return await this.ayudaRepository.save(ayuda);
+  }
+
+  async delete(id: number): Promise<void> {
+    const ayuda = await this.ayudaRepository
+      .createQueryBuilder('ayuda')
+      .where('ayuda.id = :id', { id })
+      .getOne();
+
+    if (!ayuda) {
+      throw new AyudaNotFoundException();
     }
 
-    async update(id: number, updateAyudaDto: UpdateAyudaDto): Promise<Ayuda> {
-        const ayuda = await this.ayudaRepository.createQueryBuilder('ayuda')
-            .where('ayuda.id = :id', { id })
-            .getOne();
-
-        if (!ayuda) {
-            throw new AyudaNotFoundException();
-        }
-
-        Object.assign(ayuda, updateAyudaDto);
-
-        return await this.ayudaRepository.save(ayuda);
-    }
-
-    async delete(id: number): Promise<void> {
-        const ayuda = await this.ayudaRepository.createQueryBuilder('ayuda')
-            .where('ayuda.id = :id', { id })
-            .getOne();
-
-        if (!ayuda) {
-            throw new AyudaNotFoundException();
-        }
-
-        await this.ayudaRepository.softRemove(ayuda);
-    }
+    await this.ayudaRepository.softRemove(ayuda);
+  }
 }
