@@ -8,6 +8,7 @@ import { AyudaModule } from './ayuda/ayuda.module';
 import { TopicoModule } from './topico/topico.module';
 import { ClientesModule } from './clientes/clientes.module';
 import { UsuarioModule } from './usuario/usuario.module';
+import { PublicidadModule } from './publicidad/publicidad.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { UsuarioModule } from './usuario/usuario.module';
     TopicoModule,
     ClientesModule,
     UsuarioModule,
+    PublicidadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
