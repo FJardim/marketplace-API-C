@@ -8,6 +8,10 @@ import { AyudaModule } from './ayuda/ayuda.module';
 import { TopicoModule } from './topico/topico.module';
 import { ClientesModule } from './clientes/clientes.module';
 import { UsuarioModule } from './usuario/usuario.module';
+import { ProductoModule } from './producto/producto.module';
+import { FavoritoModule } from './favorito/favorito.module';
+import { FavoritoService } from './favorito/favorito.service';
+import { FavoritoController } from './favorito/favorito.controller';
 
 @Module({
   imports: [
@@ -27,8 +31,10 @@ import { UsuarioModule } from './usuario/usuario.module';
     TopicoModule,
     ClientesModule,
     UsuarioModule,
+    FavoritoModule,
+    ProductoModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, FavoritoController],
+  providers: [AppService, FavoritoService],
 })
 export class AppModule { }
