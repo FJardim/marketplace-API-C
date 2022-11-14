@@ -1,4 +1,3 @@
-import { Topico } from 'src/topico/entities/topico.entity';
 import {
   Column,
   CreateDateColumn,
@@ -6,28 +5,18 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  ManyToOne,
-  JoinColumn,
 } from 'typeorm';
 
-@Entity({ name: 'ayuda' })
-export class Ayuda {
+@Entity({ name: 'publicidad' })
+export class Publicidad {
   @PrimaryGeneratedColumn({ name: 'id' })
   public readonly id: number;
-
-  @Column({ name: 'titulo' })
-  public titulo: string;
-
-  @Column({ name: 'descripcion' })
-  public descripcion: string;
-
-  @Column({ name: 'id_topico' })
-  public idTopico: number;
-
-  @ManyToOne(() => Topico)
-  @JoinColumn({ name: 'id_topico' })
-  public topico: Topico;
-
+  @Column({ name: 'nombre' })
+  public nombre: string;
+  @Column({ name: 'texto' })
+  public texto: string;
+  @Column({ name: 'imagen' })
+  public imagen: string;
   @CreateDateColumn({ name: 'created_at' })
   public createdAt: Date;
 
@@ -37,7 +26,7 @@ export class Ayuda {
   @DeleteDateColumn({ name: 'deleted_at', select: false })
   public deleteAt: Date;
 
-  constructor(data: Partial<Ayuda>) {
+  constructor(data: Partial<Publicidad>) {
     Object.assign(this, data);
   }
 }

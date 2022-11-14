@@ -8,10 +8,14 @@ import { AyudaModule } from './ayuda/ayuda.module';
 import { TopicoModule } from './topico/topico.module';
 import { ClientesModule } from './clientes/clientes.module';
 import { UsuarioModule } from './usuario/usuario.module';
+<<<<<<< HEAD
 import { ProductoModule } from './producto/producto.module';
 import { FavoritoModule } from './favorito/favorito.module';
 import { FavoritoService } from './favorito/favorito.service';
 import { FavoritoController } from './favorito/favorito.controller';
+=======
+import { PublicidadModule } from './publicidad/publicidad.module';
+>>>>>>> 06c15c87315fb51553f0829cbd1e968db843cab4
 
 @Module({
   imports: [
@@ -31,8 +35,12 @@ import { FavoritoController } from './favorito/favorito.controller';
     TopicoModule,
     ClientesModule,
     UsuarioModule,
+<<<<<<< HEAD
     FavoritoModule,
     ProductoModule,
+=======
+    PublicidadModule,
+>>>>>>> 06c15c87315fb51553f0829cbd1e968db843cab4
   ],
   controllers: [AppController, FavoritoController],
   providers: [AppService, FavoritoService],
