@@ -1,5 +1,5 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Clientes } from '../../clientes/entities/clientes.entity';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Tienda } from '../../tienda/entities/tienda.entity';
 
 @Entity({ name: 'producto' })
 export class Producto {
@@ -12,11 +12,18 @@ export class Producto {
     @Column({ name: 'descripcion' })
     public descripcion: string;
 
+    @Column({ name: 'tiendas_id' })
+    public tiendasId: number;
+
+    @ManyToOne(() => Tienda)
+    @JoinColumn({ name: 'tiendas_id' })
+    public tienda: Tienda;
+
     @Column({ name: 'precio' })
-    public precio: string;
+    public precio: number;
 
     @Column({ name: 'descuento' })
-    public descuento: string;
+    public descuento: number;
 
     @CreateDateColumn({ name: 'created_at' })
     public createdAt: Date;
