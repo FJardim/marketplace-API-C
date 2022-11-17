@@ -10,8 +10,8 @@ export class ClientesController {
 
     @Get()
     async paginate(
-        @Query('page') page: string,
-        @Query('perPage') perPage: string,
+        @Query('page') page: string = "1",
+        @Query('perPage') perPage: string = "10",
     ): Promise<Clientes[]> {
         return await this.clientesService.paginate(+page, +perPage);
     }

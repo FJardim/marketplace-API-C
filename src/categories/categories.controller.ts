@@ -10,8 +10,8 @@ export class CategoriesController {
 
     @Get()
     async paginate(
-        @Query('page') page: string,
-        @Query('perPage') perPage: string,
+        @Query('page') page: string = "1",
+        @Query('perPage') perPage: string = "10",
     ): Promise<Category[]> {
         return await this.categoriesService.paginate(+page, +perPage);
     }

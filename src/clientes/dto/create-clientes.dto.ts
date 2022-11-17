@@ -12,7 +12,7 @@ export class CreateClientesDto {
 
     @Expose()
     @MaxLength(250)
-    @MinLength(12)
+    @MinLength(11)
     public readonly telefono: string;
 
     @Expose()

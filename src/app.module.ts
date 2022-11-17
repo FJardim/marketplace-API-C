@@ -10,11 +10,10 @@ import { ClientesModule } from './clientes/clientes.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { ProductoModule } from './producto/producto.module';
 import { FavoritoModule } from './favorito/favorito.module';
-import { FavoritoService } from './favorito/favorito.service';
-import { FavoritoController } from './favorito/favorito.controller';
-import { TiendaController } from './tienda/tienda.controller';
 import { TiendaModule } from './tienda/tienda.module';
 import { PublicidadModule } from './publicidad/publicidad.module';
+import { AdminsModule } from './admins/admins.module';
+import { OrdenesModule } from './ordenes/ordenes.module';
 
 @Module({
   imports: [
@@ -28,6 +27,7 @@ import { PublicidadModule } from './publicidad/publicidad.module';
       database: 'markeplace_clientes',
       entities: ['dist/**/*.entity.js'],
       synchronize: false,
+      // logging: true,
     }),
     ContactoModule,
     AyudaModule,
@@ -38,6 +38,8 @@ import { PublicidadModule } from './publicidad/publicidad.module';
     ProductoModule,
     TiendaModule,
     PublicidadModule,
+    AdminsModule,
+    OrdenesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

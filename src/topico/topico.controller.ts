@@ -10,8 +10,8 @@ export class TopicoController {
 
     @Get()
     async paginate(
-        @Query('page') page: string,
-        @Query('perPage') perPage: string,
+        @Query('page') page: string = "1",
+        @Query('perPage') perPage: string = "10",
     ): Promise<Topico[]> {
         return await this.topicoService.paginate(+page, +perPage);
     }

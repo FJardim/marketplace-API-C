@@ -11,8 +11,8 @@ export class UsuarioController {
 
     @Get()
     async paginate(
-        @Query('page') page: string,
-        @Query('perPage') perPage: string,
+        @Query('page') page: string = "1",
+        @Query('perPage') perPage: string = "10",
     ): Promise<Usuario[]> {
         return await this.usuarioService.paginate(+page, +perPage);
     }

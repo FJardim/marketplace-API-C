@@ -28,14 +28,14 @@ export class TiendaService {
     }
 
     async findOne(id: number): Promise<Tienda> {
+        console.log(id)
+
         const tienda = await this.tiendaRepository.createQueryBuilder('tienda')
             .where('tienda.id = :id', { id })
             .getOne();
-        console.log({ id, tienda })
         if (!tienda) {
             throw new TiendaNoEncontrada();
         }
-
         return tienda;
     }
 

@@ -13,7 +13,7 @@ export class ProductoImagen {
     public productoId: number;
 
     @ManyToOne(() => Producto)
-    @JoinColumn({ name: 'prodcuto_id' })
+    @JoinColumn({ name: 'producto_id' })
     public producto: Producto;
 
     constructor(data: Partial<ProductoImagen>) {

@@ -7,6 +7,7 @@ import { ProductoNoEncontrado } from './error/producto-no-encontrado.exception';
 import { UpdateProductoDto } from './dto/updated-prodcuto.dto';
 import { ProductoImagen } from './entities/producto-imagen.entity';
 import { CreateProductoImagenDto } from './dto/create-producto-imagen.dto';
+import { ProductoImagenNoEncontrado } from './error/producto-imagen-no-encotrado.exception';
 
 @Injectable()
 export class ProductoService {
@@ -25,10 +26,21 @@ export class ProductoService {
     }
 
     async create(createProductoDto: CreateProductoDto): Promise<Producto> {
+        console.log(createProductoDto)
         const producto = new Producto(createProductoDto);
         return await this.productoRepository.save(producto);
     }
 
+    async findOne(id: number): Promise<Producto> {
+        const producto = await this.productoRepository.createQueryBuilder('producto')
+            .where('producto.id = :id', { id })
+            .getOne();
+        if (!producto) {
+            throw new ProductoNoEncontrado();
+        }
+
+        return producto;
+    }
 
     async update(id: number, updateProductoDto: UpdateProductoDto): Promise<Producto> {
         const producto = await this.productoRepository.createQueryBuilder('producto')
@@ -60,5 +72,16 @@ export class ProductoService {
         const productoImagen = new ProductoImagen(createProductoImagenDto);
 
         return await this.productoImagenRepository.save(productoImagen);
+    }
+
+    async findOneProductoImagen(id: number): Promise<ProductoImagen> {
+        const productoImagen = await this.productoImagenRepository.createQueryBuilder('productoimagen')
+            .where('producto.id = :id', { id })
+            .getOne();
+        if (!productoImagen) {
+            throw new ProductoImagenNoEncontrado();
+        }
+
+        return productoImagen;
     }
 }

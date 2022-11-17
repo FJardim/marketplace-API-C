@@ -12,8 +12,8 @@ export class ProductoController {
 
     @Get()
     async paginate(
-        @Query('page') page: string,
-        @Query('perPage') perPage: string,
+        @Query('page') page: string = "1",
+        @Query('perPage') perPage: string = "10",
     ): Promise<Producto[]> {
         return await this.productoService.paginate(+page, +perPage);
     }
@@ -23,6 +23,23 @@ export class ProductoController {
         @Body() createProductoDto: CreateProductoDto,
     ): Promise<Producto> {
         return await this.productoService.create(createProductoDto);
+    }
+
+    @Post('/producto-imagen')
+    async createProductoImagen(
+        @Body() createProductoImagenDto: CreateProductoImagenDto,
+    ): Promise<ProductoImagen> {
+        return await this.productoService.createImagen(createProductoImagenDto);
+    }
+
+    @Get(':id')
+    async findOne(@Param('id') id: string): Promise<Producto> {
+        return await this.productoService.findOne(+id);
+    }
+
+    @Get(':id/producto-imagen')
+    async findOneProductoImagen(@Param('id') id: string): Promise<ProductoImagen> {
+        return await this.productoService.findOneProductoImagen(+id);
     }
 
     @Put(':id')
@@ -38,10 +55,5 @@ export class ProductoController {
         await this.productoService.delete(+id);
     }
 
-    @Post()
-    async createProductoImagen(
-        @Body() createProductoImagenDto: CreateProductoImagenDto,
-    ): Promise<ProductoImagen> {
-        return await this.productoService.createImagen(createProductoImagenDto);
-    }
+
 }

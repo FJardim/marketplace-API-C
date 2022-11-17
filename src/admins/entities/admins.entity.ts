@@ -1,31 +1,22 @@
-import { Usuario } from "src/usuario/entities/usuario.entity";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, OneToOne, JoinColumn } from "typeorm";
+import { Usuario } from '../../usuario/entities/usuario.entity';
 
-@Entity({ name: 'clientes' })
-export class Clientes {
+@Entity({ name: 'admins' })
+export class Admins {
     @PrimaryGeneratedColumn({ name: 'id' })
     public readonly id: number;
 
     @Column({ name: 'nombre' })
     public nombre: string;
 
-    @Column({ name: 'telefono' })
-    public telefono: string;
+    @Column({ name: 'phpnombre' })
+    public phpnombre: string;
 
-    @Column({ name: 'imagen' })
-    public imagen: string;
+    @Column({ name: 'apellido' })
+    public apellido: string;
 
-    @Column({ name: 'instagram' })
-    public instagram: string;
-
-    @Column({ name: 'paypal' })
-    public paypal: string;
-
-    @Column({ name: 'correo' })
-    public correo: string;
-
-    @Column({ name: 'direccion' })
-    public direccion: string;
+    @Column({ name: 'imagen_perfil' })
+    public imagen_perfil: string;
 
     @Column({ name: 'id_usuario' })
     public id_usuario: number;
@@ -43,7 +34,7 @@ export class Clientes {
     @DeleteDateColumn({ name: 'deleted_at', select: false })
     public deleteAt: Date;
 
-    constructor(data: Partial<Clientes>) {
+    constructor(data: Partial<Admins>) {
         Object.assign(this, data);
     }
 

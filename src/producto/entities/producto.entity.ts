@@ -13,7 +13,7 @@ export class Producto {
     public descripcion: string;
 
     @Column({ name: 'tiendas_id' })
-    public tiendasId: number;
+    public tiendas_id: number;
 
     @ManyToOne(() => Tienda)
     @JoinColumn({ name: 'tiendas_id' })
