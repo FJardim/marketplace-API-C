@@ -1,13 +1,6 @@
 import { Topico } from 'src/topico/entities/topico.entity';
 import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-  ManyToOne,
-  JoinColumn,
+  Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, ManyToOne, JoinColumn,
 } from 'typeorm';
 
 @Entity({ name: 'ayuda' })
@@ -22,7 +15,7 @@ export class Ayuda {
   public descripcion: string;
 
   @Column({ name: 'id_topico' })
-  public idTopico: number;
+  public id_topico: number;
 
   @ManyToOne(() => Topico)
   @JoinColumn({ name: 'id_topico' })

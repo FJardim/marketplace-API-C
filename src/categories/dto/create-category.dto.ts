@@ -10,4 +10,7 @@ export class CreateCategoryDto {
 
     @Expose()
     public readonly imgCategoria: string;
+
+    @Expose()
+    public readonly id_tienda: number;
 }

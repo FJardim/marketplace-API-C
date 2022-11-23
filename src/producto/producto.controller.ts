@@ -2,9 +2,11 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/
 import { Producto } from './entities/producto.entity';
 import { ProductoService } from './producto.service';
 import { CreateProductoDto } from './dto/create-producto.dto';
-import { UpdateProductoDto } from './dto/updated-prodcuto.dto';
+import { UpdateProductoDto } from './dto/updated-producto.dto';
 import { CreateProductoImagenDto } from './dto/create-producto-imagen.dto';
 import { ProductoImagen } from './entities/producto-imagen.entity';
+import { ProductoDetalles } from './entities/producto-detalle.entity';
+import { CreateProductoDetallesDto } from './dto/create-producto-detalle.dto';
 
 @Controller('producto')
 export class ProductoController {
@@ -29,17 +31,12 @@ export class ProductoController {
     async createProductoImagen(
         @Body() createProductoImagenDto: CreateProductoImagenDto,
     ): Promise<ProductoImagen> {
-        return await this.productoService.createImagen(createProductoImagenDto);
+        return await this.productoService.createProductoImagen(createProductoImagenDto);
     }
 
-    @Get(':id')
+    @Get(':id(\\d+)')
     async findOne(@Param('id') id: string): Promise<Producto> {
         return await this.productoService.findOne(+id);
-    }
-
-    @Get(':id/producto-imagen')
-    async findOneProductoImagen(@Param('id') id: string): Promise<ProductoImagen> {
-        return await this.productoService.findOneProductoImagen(+id);
     }
 
     @Put(':id')
@@ -55,5 +52,16 @@ export class ProductoController {
         await this.productoService.delete(+id);
     }
 
+    @Get('/producto-imagen')
+    async getAllProductoImagen(@Query('idProducto') idProducto: string = '0'): Promise<ProductoImagen[]> {
+        return await this.productoService.getAllProductoImagen(+idProducto);
+    }
+
+    @Post('/producto-detalles')
+    async createProductoDetalles(
+        @Body() createProductoDetallesDto: CreateProductoDetallesDto,
+    ): Promise<ProductoDetalles> {
+        return await this.productoService.createProductoDetalles(createProductoDetallesDto);
+    }
 
 }

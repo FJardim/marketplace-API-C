@@ -1,4 +1,4 @@
-import { Controller, Body, Param, Post, Put, Delete, Get } from '@nestjs/common';
+import { Controller, Body, Param, Post, Put, Delete, Get, Query } from '@nestjs/common';
 import { AyudaService } from './ayuda.service';
 import { CreateAyudaDto } from './dto/create-ayuda.dto';
 import { UpdateAyudaDto } from './dto/updates-ayuda.dto';
@@ -7,6 +7,15 @@ import { Ayuda } from './entities/ayuda.entity';
 @Controller('ayuda')
 export class AyudaController {
     constructor(private readonly ayudaService: AyudaService) { }
+
+
+    @Get()
+    async paginate(
+        @Query('page') page: string = "1",
+        @Query('perPage') perPage: string = "10",
+    ): Promise<Ayuda[]> {
+        return await this.ayudaService.paginate(+page, +perPage);
+    }
 
     @Post()
     async create(

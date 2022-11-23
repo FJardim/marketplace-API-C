@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Producto } from "./producto.entity";
 
-@Entity({ name: 'productoImagen' })
+@Entity({ name: 'producto_imagen' })
 export class ProductoImagen {
     @PrimaryGeneratedColumn({ name: 'id' })
     public readonly id: number;
@@ -10,11 +10,14 @@ export class ProductoImagen {
     public path: string;
 
     @Column({ name: 'producto_id' })
-    public productoId: number;
+    public producto_id: number;
 
     @ManyToOne(() => Producto)
     @JoinColumn({ name: 'producto_id' })
     public producto: Producto;
+
+    @Column({ name: 'posicion' })
+    public posicion: number;
 
     constructor(data: Partial<ProductoImagen>) {
         Object.assign(this, data);

@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
-@Entity({ name: 'topicos' })
+@Entity({ name: 'topico' })
 export class Topico {
     @PrimaryGeneratedColumn({ name: 'id' })
     public readonly id: number;

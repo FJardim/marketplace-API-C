@@ -1,4 +1,6 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Usuario } from '../../usuario/entities/usuario.entity';
+import { TiendaCategoria } from './tienda-categoria.entity';
 
 @Entity({ name: 'tienda' })
 export class Tienda {
@@ -31,6 +33,23 @@ export class Tienda {
 
     @Column({ name: 'url' })
     public url: string;
+
+    @Column({ name: 'tienda_categoria_id' })
+    public tienda_categoria_id: number;
+
+    @ManyToOne(() => TiendaCategoria)
+    @JoinColumn({ name: 'tienda_categoria_id' })
+    public tiendaCategoria: TiendaCategoria;
+
+    @Column({ name: 'usuario_id' })
+    public usuario_id: number;
+
+    @OneToOne(() => Usuario)
+    @JoinColumn({ name: 'usuario_id' })
+    public usuario: Usuario;
+
+    @Column({ name: 'rating' })
+    public rating: number;
 
     @CreateDateColumn({ name: 'created_at' })
     public createdAt: Date;

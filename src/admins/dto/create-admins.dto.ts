@@ -13,7 +13,7 @@ export class CreateAdminsDto {
     @Expose()
     @MaxLength(250)
     @MinLength(11)
-    public readonly phpnombre: string;
+    public readonly phonombre: string;
 
     @Expose()
     @MaxLength(250)

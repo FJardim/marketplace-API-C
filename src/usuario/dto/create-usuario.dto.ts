@@ -4,12 +4,6 @@ import { Role } from "../enums/role.enum";
 @Exclude()
 export class CreateUsuarioDto {
     @Expose()
-    public readonly nombre: string;
-
-    @Expose()
-    public readonly imagen: string;
-
-    @Expose()
     public readonly correo: string;
 
     @Expose()
@@ -18,4 +12,6 @@ export class CreateUsuarioDto {
     @Expose()
     public readonly role: Role;
 
+    @Expose()
+    public readonly imagen: string;
 }

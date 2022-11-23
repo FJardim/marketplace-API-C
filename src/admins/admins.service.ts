@@ -63,7 +63,6 @@ export class AdminsService {
         if (!admins) {
             throw new AdministradorNotFoundException();
         }
-
         await this.adminsRepository.softRemove(admins);
     }
 }

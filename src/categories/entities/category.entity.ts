@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Tienda } from '../../tienda/entities/tienda.entity';
 
 @Entity({ name: 'categoria' })
 export class Category {
@@ -10,6 +11,13 @@ export class Category {
 
   @Column({ name: 'img_categoria' })
   public imgCategoria: string;
+
+  @Column({ name: 'id_tienda' })
+  public id_tienda: number;
+
+  @ManyToOne(() => Tienda)
+  @JoinColumn({ name: 'id_tienda' })
+  public tienda: Tienda;
 
   @CreateDateColumn({ name: 'created_at' })
   public createdAt: Date;

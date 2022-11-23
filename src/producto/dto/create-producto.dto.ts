@@ -1,5 +1,5 @@
 import { Exclude, Expose } from "class-transformer";
-import { IsNumber, Max, MaxLength, Min, MinLength } from "class-validator";
+import { MaxLength, MinLength } from "class-validator";
 
 
 @Exclude()
@@ -18,12 +18,6 @@ export class CreateProductoDto {
     public readonly tiendas_id: number;
 
     @Expose()
-    @IsNumber()
-    @Min(2)
-    public readonly precio: number;
-
-    @Expose()
-    @IsNumber()
-    public readonly descuento: number;
+    public readonly rating: number;
 
 }

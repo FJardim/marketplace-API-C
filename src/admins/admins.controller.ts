@@ -38,7 +38,7 @@ export class AdminsController {
 
     @Delete(':id')
     async delete(@Param('id') id: string): Promise<void> {
-        await this.adminsService.delete(+id);
+        return await this.adminsService.delete(+id);
     }
 }
 

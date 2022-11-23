@@ -2,7 +2,7 @@ import { NotFoundException } from "@nestjs/common";
 
 export class AdministradorNotFoundException extends NotFoundException {
     constructor() {
-        super("Administrador no encontrada");
+        super("Administrador no encontrado");
     }
 
 }

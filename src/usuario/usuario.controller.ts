@@ -1,8 +1,11 @@
-import { Controller, Get, Query, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Query, Post, Body, Param, Put, Delete, UseGuards } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/updated-usuario.dto';
 import { Usuario } from './entities/usuario.entity';
 import { UsuarioService } from './usuario.service';
+import { Role } from './enums/role.enum';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { RolesGuard } from '../auth/guards/roles.guard';
 
 @Controller('usuario')
 export class UsuarioController {
@@ -43,6 +46,8 @@ export class UsuarioController {
     }
 
     @Delete(':id')
+    // @Roles(Role.ADMIN)
+    // @UseGuards(JwtAuthGuard, RolesGuard)
     async delete(@Param('id') id: string): Promise<void> {
         await this.usuarioService.delete(+id);
     }

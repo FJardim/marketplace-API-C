@@ -3,6 +3,8 @@ import { TiendaService } from './tienda.service';
 import { CreateTiendaDto } from './dto/create-tienda.dto';
 import { Tienda } from './entities/tienda.entity';
 import { UpdateTiendaDto } from './dto/update-tienda.dto';
+import { CreateTiendaCategoriaDto } from './dto/create-tienda-categoria.dto';
+import { TiendaCategoria } from './entities/tienda-categoria.entity';
 
 @Controller('tienda')
 export class TiendaController {
@@ -10,8 +12,8 @@ export class TiendaController {
 
     @Get()
     async paginate(
-        @Query('page') page: string,
-        @Query('perPage') perPage: string,
+        @Query('page') page: string = '1',
+        @Query('perPage') perPage: string = '10',
     ): Promise<Tienda[]> {
         return await this.tiendaService.paginate(+page, +perPage);
     }
@@ -23,7 +25,22 @@ export class TiendaController {
         return await this.tiendaService.create(createTiendaDto);
     }
 
-    @Get(':id')
+    @Get('/tienda-categoria')
+    async paginateTiendaCategoria(
+        @Query('page') page: string = '1',
+        @Query('perPage') perPage: string = '10',
+    ): Promise<TiendaCategoria[]> {
+        return await this.tiendaService.paginateTiendaCategoria(+page, +perPage);
+    }
+
+    @Post('/tienda-categoria')
+    async createTiendaCategoria(
+        @Body() createTiendaCategoriaDto: CreateTiendaCategoriaDto,
+    ): Promise<TiendaCategoria> {
+        return await this.tiendaService.createTiendaCategoria(createTiendaCategoriaDto);
+    }
+
+    @Get(':id(\\d+)')
     async findOne(@Param('id') id: string): Promise<Tienda> {
         return await this.tiendaService.findOne(+id);
     }
@@ -39,5 +56,10 @@ export class TiendaController {
     @Delete(':id')
     async delete(@Param('id') id: string): Promise<void> {
         await this.tiendaService.delete(+id);
+    }
+
+    @Get('/tienda-categoria/:id')
+    async findOneTiendaCategoria(@Param('id') id: string): Promise<TiendaCategoria> {
+        return await this.tiendaService.findOneTiendaCategoria(+id);
     }
 }

@@ -23,6 +23,7 @@ export class TopicoService {
     }
 
     async create(createTopicoDto: CreateTopicoDto): Promise<Topico> {
+        console.log(createTopicoDto)
         const topico = new Topico(createTopicoDto);
         return await this.topicoRepository.save(topico);
     }
@@ -56,12 +57,10 @@ export class TopicoService {
     async delete(id: number): Promise<void> {
         const topico = await this.topicoRepository.createQueryBuilder('topico')
             .where('topico.id = :id', { id })
-            .getOne();
-
+            .getOne()
         if (!topico) {
             throw new TopicoNotFoundException();
         }
-
         await this.topicoRepository.softRemove(topico);
     }
 

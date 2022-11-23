@@ -11,7 +11,7 @@ export class AyudaService {
   constructor(
     @InjectRepository(Ayuda)
     private readonly ayudaRepository: Repository<Ayuda>,
-  ) {}
+  ) { }
   async paginate(page: number, perPage: number): Promise<Ayuda[]> {
     const offset = (page - 1) * perPage;
 

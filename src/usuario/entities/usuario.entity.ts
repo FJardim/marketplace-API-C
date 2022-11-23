@@ -12,7 +12,7 @@ export class Usuario {
     @Column({ name: 'password' })
     public password: string;
 
-    @Column({ name: 'roles' })
+    @Column({ name: 'role' })
     public role: Role;
 
     @Column({ name: 'imagen' })

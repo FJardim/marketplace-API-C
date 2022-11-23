@@ -29,5 +29,15 @@ export class CreateTiendaDto {
     @Expose()
     public readonly url: string;
 
+    @Expose()
+    public readonly tienda_categoria_id: number;
+
+    @Expose()
+    public readonly usuario_id: number;
+
+    @Expose()
+    public readonly rating: number;
+
+
 
 }

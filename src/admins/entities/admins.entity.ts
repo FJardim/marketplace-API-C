@@ -9,8 +9,8 @@ export class Admins {
     @Column({ name: 'nombre' })
     public nombre: string;
 
-    @Column({ name: 'phpnombre' })
-    public phpnombre: string;
+    @Column({ name: 'phonombre' })
+    public phonombre: string;
 
     @Column({ name: 'apellido' })
     public apellido: string;
