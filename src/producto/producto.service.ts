@@ -20,15 +20,23 @@ export class ProductoService {
 
     async paginate(page: number, perPage: number): Promise<Producto[]> {
         const offset = (page - 1) * perPage;
-
         const producto = await this.productoRepository.createQueryBuilder('producto')
+            .leftJoinAndSelect('producto.productoImagenes', 'productoImagen')
+            .leftJoinAndSelect('producto.productoDetalles', 'productoDetalles')
             .take(perPage)
             .skip(offset)
             .getMany();
 
         return producto;
     }
-
+    async paginateProductoDetalles(page: number, perPage: number): Promise<ProductoDetalles[]> {
+        const offset = (page - 1) * perPage;
+        const productoDetalles = await this.productoDetallesRepository.createQueryBuilder('productodetalles')
+            .take(perPage)
+            .skip(offset)
+            .getMany();
+        return productoDetalles;
+    }
     async create(createProductoDto: CreateProductoDto): Promise<Producto> {
         const producto = new Producto(createProductoDto);
         return await this.productoRepository.save(producto);
@@ -95,6 +103,17 @@ export class ProductoService {
         const productoDetalles = new ProductoDetalles(createProductoDetallesDto);
 
         return await this.productoDetallesRepository.save(productoDetalles);
+    }
+
+    async findOneProductoDetalles(idproducto: number): Promise<ProductoDetalles> {
+        const productoDetalles = await this.productoDetallesRepository.createQueryBuilder('productodetalles')
+            .where('productodetalles.id = :idproducto', { idproducto })
+            .getOne();
+        if (!productoDetalles) {
+            throw new ProductoNoEncontrado();
+        }
+
+        return productoDetalles;
     }
 
 }

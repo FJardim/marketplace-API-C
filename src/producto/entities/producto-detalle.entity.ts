@@ -1,11 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Producto } from "./producto.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Marca } from '../../marca/entities/marca.entity';
+import { Producto } from './producto.entity';
 
 @Entity({ name: 'producto_detalles' })
 export class ProductoDetalles {
-    @PrimaryGeneratedColumn({ name: 'id_producto' })
-    public readonly id_producto: number;
+    @PrimaryGeneratedColumn({ name: 'id' })
+    public readonly id: number;
 
     @Column({ name: 'referencia' })
     public referencia: string;
@@ -18,6 +18,13 @@ export class ProductoDetalles {
 
     @Column({ name: 'cantidad' })
     public cantidad: number;
+
+    @Column({ name: 'producto_id' })
+    public producto_id: number;
+
+    @OneToOne(() => Producto)
+    @JoinColumn({ name: 'producto_id' })
+    public producto: Producto;
 
     @Column({ name: 'marca_id' })
     public marca_id: number;

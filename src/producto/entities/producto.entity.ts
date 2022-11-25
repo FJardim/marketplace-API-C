@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Tienda } from '../../tienda/entities/tienda.entity';
 import { ProductoImagen } from './producto-imagen.entity';
 import { ProductoDetalles } from './producto-detalle.entity';
@@ -27,8 +27,8 @@ export class Producto {
     @OneToMany(() => ProductoImagen, productoImagen => productoImagen.producto)
     public productoImagenes: ProductoImagen[];
 
-    // @OneToMany(() => ProductoDetalles, productoDetalles => productoDetalles.producto)
-    // public productoDetalles: ProductoDetalles[];
+    @OneToOne(() => ProductoDetalles, productoDetalles => productoDetalles.producto)
+    public productoDetalles: ProductoDetalles[];
 
     @CreateDateColumn({ name: 'created_at' })
     public createdAt: Date;

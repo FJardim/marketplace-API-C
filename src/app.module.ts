@@ -13,6 +13,8 @@ import { PublicidadModule } from './publicidad/publicidad.module';
 import { AdminsModule } from './admins/admins.module';
 import { TiendaRatingModule } from './tienda_rating/tienda_rating.module';
 import { MarcaModule } from './marca/marca.module';
+import { ProductoRatingModule } from './producto-rating/producto-rating.module';
+import { ProductoCategoriaModule } from './producto-categoria/producto-categoria.module';
 
 @Module({
   imports: [
@@ -39,6 +41,8 @@ import { MarcaModule } from './marca/marca.module';
     TiendaRatingModule,
     ProductoModule,
     MarcaModule,
+    ProductoRatingModule,
+    ProductoCategoriaModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -15,5 +15,8 @@ export class CreateProductoDetallesDto {
     public readonly cantidad: number;
 
     @Expose()
+    public readonly producto_id: number;
+
+    @Expose()
     public readonly marca_id: number;
 }
