@@ -23,7 +23,6 @@ export class TopicoService {
     }
 
     async create(createTopicoDto: CreateTopicoDto): Promise<Topico> {
-        console.log(createTopicoDto)
         const topico = new Topico(createTopicoDto);
         return await this.topicoRepository.save(topico);
     }

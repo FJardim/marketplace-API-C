@@ -15,6 +15,10 @@ import { TiendaRatingModule } from './tienda_rating/tienda_rating.module';
 import { MarcaModule } from './marca/marca.module';
 import { ProductoRatingModule } from './producto-rating/producto-rating.module';
 import { ProductoCategoriaModule } from './producto-categoria/producto-categoria.module';
+import { ClientesModule } from './clientes/clientes.module';
+import { ClientesRatingModule } from './clientes_rating/clientes_rating.module';
+import { OrdenesModule } from './ordenes/ordenes.module';
+import { MetodoPagoModule } from './metodo_pago/metodo_pago.module';
 
 @Module({
   imports: [
@@ -39,10 +43,14 @@ import { ProductoCategoriaModule } from './producto-categoria/producto-categoria
     ContactoModule,
     PublicidadModule,
     TiendaRatingModule,
+    ClientesModule,
     ProductoModule,
     MarcaModule,
     ProductoRatingModule,
     ProductoCategoriaModule,
+    ClientesRatingModule,
+    OrdenesModule,
+    MetodoPagoModule,
   ],
   controllers: [AppController],
   providers: [AppService],

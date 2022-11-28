@@ -20,6 +20,7 @@ export class OrdenesController {
     async create(
         @Body() createOrdenesDto: CreateOrdenesDto,
     ): Promise<Ordenes> {
+        console.log(createOrdenesDto);
         return await this.ordenesService.create(createOrdenesDto);
     }
 

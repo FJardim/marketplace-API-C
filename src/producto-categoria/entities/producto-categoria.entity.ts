@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Producto } from '../../producto/entities/producto.entity';
 import { Category } from '../../categories/entities/category.entity';
 
@@ -10,15 +10,15 @@ export class ProductoCategoria {
     @Column({ name: 'producto_id' })
     public producto_id: number;
 
-    @ManyToMany(() => Producto)
-    @JoinColumn({ name: 'id_producto' })
+    @ManyToOne(() => Producto)
+    @JoinColumn({ name: 'producto_id' })
     public producto: Producto;
 
     @Column({ name: 'categoria_id' })
     public categoria_id: number;
 
-    @ManyToMany(() => Category)
-    @JoinColumn({ name: 'id_categoria' })
+    @ManyToOne(() => Category)
+    @JoinColumn({ name: 'categoria_id' })
     public categoria: Category;
 
     constructor(data: Partial<ProductoCategoria>) {

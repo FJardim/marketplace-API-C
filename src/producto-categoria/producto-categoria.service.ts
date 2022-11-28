@@ -57,6 +57,6 @@ export class ProductoCategoriaService {
         if (!productoCategoria) {
             throw new ProductoCategoriaNotFoundException();
         }
-        await this.productoCategoriaRepository.softRemove(productoCategoria);
+        await this.productoCategoriaRepository.remove(productoCategoria);
     }
 }

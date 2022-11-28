@@ -1,33 +1,45 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, OneToOne, JoinColumn } from "typeorm";
-import { Clientes } from '../../clientes/entities/clientes.entity';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, OneToOne, JoinColumn, ManyToOne } from "typeorm";
+import { Tienda } from '../../tienda/entities/tienda.entity';
+import { Usuario } from '../../usuario/entities/usuario.entity';
+import { MetodosPagos } from '../../metodo_pago/entities/metodo-pago.entity';
 
 @Entity({ name: 'ordenes' })
 export class Ordenes {
     @PrimaryGeneratedColumn({ name: 'id' })
     public readonly id: number;
 
-    @Column({ name: 'numero' })
-    public numero: number;
+    @Column({ name: 'numero_orden' })
+    public numero_orden: number;
 
     @Column({ name: 'fecha' })
     public fecha: Date;
 
-    @Column({ name: 'id_clientes' })
-    public idClientes: number;
+    @Column({ name: 'orden_status' })
+    public orden_status: string;
 
-    // @OneToOne(() => Clientes)
-    // @JoinColumn({ name: 'id_clientes' })
-    // public clientes: Clientes;
+    @Column({ name: 'id_tienda' })
+    public id_tienda: number;
 
-    @Column({ name: 'metodo_pago_id' })
-    public metodoPagoID: number;
+    @ManyToOne(() => Tienda)
+    @JoinColumn({ name: 'id_tienda' })
+    public tienda: Tienda;
 
-    // @OneToOne(() => MetodosPagos)
-    // @JoinColumn({ name: 'metodo_pago_id' })
-    // public metodosPagos: MetodosPagos;
+    @Column({ name: 'id_usuario' })
+    public idusuario: number;
 
-    @Column({ name: 'status' })
-    public status: string;
+    @ManyToOne(() => Usuario)
+    @JoinColumn({ name: 'id_usuario' })
+    public usuario: Usuario;
+
+    @Column({ name: 'codigo_metodo_pago' })
+    public codigo_metodo_pago: string;
+
+    @ManyToOne(() => MetodosPagos)
+    @JoinColumn({ name: 'codigo_metodo_pago' })
+    public metodoPagos: MetodosPagos;
+
+    @Column({ name: 'total' })
+    public total: number;
 
     @CreateDateColumn({ name: 'created_at' })
     public createdAt: Date;

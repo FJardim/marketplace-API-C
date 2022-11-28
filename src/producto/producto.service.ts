@@ -7,7 +7,6 @@ import { ProductoNoEncontrado } from './error/producto-no-encontrado.exception';
 import { UpdateProductoDto } from './dto/updated-producto.dto';
 import { ProductoImagen } from './entities/producto-imagen.entity';
 import { CreateProductoImagenDto } from './dto/create-producto-imagen.dto';
-import { ProductoImagenNoEncontrado } from './error/producto-imagen-no-encotrado.exception';
 import { ProductoDetalles } from './entities/producto-detalle.entity';
 import { CreateProductoDetallesDto } from './dto/create-producto-detalle.dto';
 

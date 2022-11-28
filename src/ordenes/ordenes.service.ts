@@ -25,7 +25,7 @@ export class OrdenesService {
 
     async create(createOrdenesDto: CreateOrdenesDto): Promise<Ordenes> {
         const ordenes = new Ordenes(createOrdenesDto);
-
+        console.log("createOrdenesDto");
         return await this.ordenesRepository.save(ordenes);
     }
 

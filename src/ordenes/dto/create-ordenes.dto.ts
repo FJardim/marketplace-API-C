@@ -1,21 +1,26 @@
 import { Exclude, Expose } from "class-transformer";
-import { MaxLength, MinLength } from "class-validator";
 
 @Exclude()
 export class CreateOrdenesDto {
     @Expose()
-    public readonly numero: number;
+    public readonly numero_orden: number;
 
     @Expose()
     public readonly fecha: Date;
 
     @Expose()
-    public readonly idClientes: number;
+    public readonly orden_status: string;
 
     @Expose()
-    public readonly metodoPagoID: number;
+    public readonly id_tienda: number;
 
     @Expose()
-    public readonly status: string;
+    public readonly id_usuario: number;
+
+    @Expose()
+    public readonly codigo_metodo_pago: string;
+
+    @Expose()
+    public readonly total: number;
 
 }
