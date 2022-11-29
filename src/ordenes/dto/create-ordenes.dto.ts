@@ -1,4 +1,5 @@
 import { Exclude, Expose } from "class-transformer";
+import { MetodoPagoCodigo } from '../../metodo-pago/enums/metodo-pago-codigo';
 
 @Exclude()
 export class CreateOrdenesDto {
@@ -18,7 +19,7 @@ export class CreateOrdenesDto {
     public readonly id_usuario: number;
 
     @Expose()
-    public readonly codigo_metodo_pago: string;
+    public readonly codigo_metodo_pago: MetodoPagoCodigo;
 
     @Expose()
     public readonly total: number;

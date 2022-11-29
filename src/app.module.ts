@@ -11,14 +11,16 @@ import { ProductoModule } from './producto/producto.module';
 import { TiendaModule } from './tienda/tienda.module';
 import { PublicidadModule } from './publicidad/publicidad.module';
 import { AdminsModule } from './admins/admins.module';
-import { TiendaRatingModule } from './tienda_rating/tienda_rating.module';
 import { MarcaModule } from './marca/marca.module';
 import { ProductoRatingModule } from './producto-rating/producto-rating.module';
 import { ProductoCategoriaModule } from './producto-categoria/producto-categoria.module';
 import { ClientesModule } from './clientes/clientes.module';
-import { ClientesRatingModule } from './clientes_rating/clientes_rating.module';
 import { OrdenesModule } from './ordenes/ordenes.module';
-import { MetodoPagoModule } from './metodo_pago/metodo_pago.module';
+import { TiendaRatingModule } from './tienda-rating/tienda-rating.module';
+import { ClientesRatingModule } from './clientes-rating/clientes-rating.module';
+import { MetodoPagoController } from './metodo-pago/metodo-pago.controller';
+import { MetodoPagoModule } from './metodo-pago/metodo-pago.module';
+import { OrdenesStatusModule } from './ordenes-status/ordenes-status.module';
 
 @Module({
   imports: [
@@ -51,6 +53,7 @@ import { MetodoPagoModule } from './metodo_pago/metodo_pago.module';
     ClientesRatingModule,
     OrdenesModule,
     MetodoPagoModule,
+    OrdenesStatusModule,
   ],
   controllers: [AppController],
   providers: [AppService],

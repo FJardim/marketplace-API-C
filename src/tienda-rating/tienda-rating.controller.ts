@@ -1,8 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
-import { TiendaRatingService } from './tienda_rating.service';
-import { TiendaRating } from './entities/tienda-rating.entity';
-import { CreateTiendaRatingDto } from './dto/create-tienda-rating.dto';
-import { UpdateTiendaRatingDto } from './dto/update-tienda-rating.dto';
+import { TiendaRatingService } from './tienda-rating.service';
+import { TiendaRating } from '../tienda-rating/entities/tienda-rating.entity';
+import { CreateTiendaRatingDto } from '../tienda-rating/dto/create-tienda-rating.dto';
+import { UpdateTiendaRatingDto } from '../tienda-rating/dto/update-tienda-rating.dto';
 
 @Controller('tienda-rating')
 export class TiendaRatingController {

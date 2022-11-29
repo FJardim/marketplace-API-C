@@ -1,7 +1,9 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, OneToOne, JoinColumn, ManyToOne } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, OneToOne, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { Tienda } from '../../tienda/entities/tienda.entity';
 import { Usuario } from '../../usuario/entities/usuario.entity';
-import { MetodosPagos } from '../../metodo_pago/entities/metodo-pago.entity';
+import { MetodoPagoCodigo } from '../../metodo-pago/enums/metodo-pago-codigo';
+import { MetodoPago } from '../../metodo-pago/entities/metodo-pago.entity';
+import { OrdenItems } from './orden-items.entity';
 
 @Entity({ name: 'ordenes' })
 export class Ordenes {
@@ -25,18 +27,21 @@ export class Ordenes {
     public tienda: Tienda;
 
     @Column({ name: 'id_usuario' })
-    public idusuario: number;
+    public id_usuario: number;
 
     @ManyToOne(() => Usuario)
     @JoinColumn({ name: 'id_usuario' })
     public usuario: Usuario;
 
     @Column({ name: 'codigo_metodo_pago' })
-    public codigo_metodo_pago: string;
+    public codigo_metodo_pago: MetodoPagoCodigo;
 
-    @ManyToOne(() => MetodosPagos)
+    @ManyToOne(() => MetodoPago)
     @JoinColumn({ name: 'codigo_metodo_pago' })
-    public metodoPagos: MetodosPagos;
+    public metodoPago: MetodoPago;
+
+    @OneToMany(() => OrdenItems, orderItem => orderItem.orden)
+    public ordenItems: OrdenItems[];
 
     @Column({ name: 'total' })
     public total: number;

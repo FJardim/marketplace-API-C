@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UpdateClientesRatingDto } from './dto/update-clientes-rating.dto';
-import { ClientesRating } from './entities/clientes-rating.entity';
-import { ClientesRatingNotFoundException } from './error/clientes-rating-not-found.exception';
+import { UpdateClientesRatingDto } from '../clientes-rating/dto/update-clientes-rating.dto';
+import { ClientesRating } from '../clientes-rating/entities/clientes-rating.entity';
+import { ClientesRatingNotFoundException } from '../clientes-rating/error/clientes-rating-not-found.exception';
 import { Repository } from 'typeorm';
-import { CreateClientesRatingDto } from './dto/create-clientes-rating.dto';
+import { CreateClientesRatingDto } from '../clientes-rating/dto/create-clientes-rating.dto';
 
 @Injectable()
 export class ClientesRatingService {

@@ -5,17 +5,21 @@ import { Repository } from 'typeorm';
 import { Ordenes } from './entities/ordenes.entity';
 import { CreateOrdenesDto } from './dto/create-ordenes.dto';
 import { UpdateOrdenesDto } from './dto/update-ordenes.dto';
+import { CreateOrdenItemsDto } from './dto/create-orden-items.dto';
+import { OrdenItems } from './entities/orden-items.entity';
 
 @Injectable()
 export class OrdenesService {
     constructor(
-        @InjectRepository(Ordenes) private readonly ordenesRepository: Repository<Ordenes>
+        @InjectRepository(Ordenes) private readonly ordenesRepository: Repository<Ordenes>,
+        @InjectRepository(OrdenItems) private readonly ordenItemsRepository: Repository<OrdenItems>,
     ) { }
 
     async paginate(page: number, perPage: number): Promise<Ordenes[]> {
         const offset = (page - 1) * perPage;
 
         const ordenes = await this.ordenesRepository.createQueryBuilder('ordenes')
+            .leftJoinAndSelect('ordenes.ordenItems', 'ordenItems')
             .take(perPage)
             .skip(offset)
             .getMany();
@@ -25,15 +29,30 @@ export class OrdenesService {
 
     async create(createOrdenesDto: CreateOrdenesDto): Promise<Ordenes> {
         const ordenes = new Ordenes(createOrdenesDto);
-        console.log("createOrdenesDto");
         return await this.ordenesRepository.save(ordenes);
+    }
+
+    async paginateOrdenItems(page: number, perPage: number): Promise<OrdenItems[]> {
+        const offset = (page - 1) * perPage;
+
+        const ordenItems = await this.ordenItemsRepository.createQueryBuilder('ordenitems')
+            .take(perPage)
+            .skip(offset)
+            .getMany();
+
+        return ordenItems;
+    }
+
+    async createOrdenItems(createOrdenItemsDto: CreateOrdenItemsDto): Promise<OrdenItems> {
+        const ordenItems = new OrdenItems(createOrdenItemsDto);
+        return await this.ordenItemsRepository.save(ordenItems);
     }
 
     async findOne(id: number): Promise<Ordenes> {
         const ordenes = await this.ordenesRepository.createQueryBuilder('ordenes')
             .where('ordenes.id = :id', { id })
             .getOne();
-
+        // console.log("Hola")
         if (!ordenes) {
             throw new OrdenesNotFoundException();
         }

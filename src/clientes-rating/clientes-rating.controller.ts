@@ -1,8 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
-import { ClientesRating } from './entities/clientes-rating.entity';
-import { UpdateClientesRatingDto } from './dto/update-clientes-rating.dto';
-import { CreateClientesRatingDto } from './dto/create-clientes-rating.dto';
-import { ClientesRatingService } from './clientes_rating.service';
+import { ClientesRating } from '../clientes-rating/entities/clientes-rating.entity';
+import { UpdateClientesRatingDto } from '../clientes-rating/dto/update-clientes-rating.dto';
+import { CreateClientesRatingDto } from '../clientes-rating/dto/create-clientes-rating.dto';
+import { ClientesRatingService } from './clientes-rating.service';
 
 @Controller('clientes-rating')
 export class ClientesRatingController {

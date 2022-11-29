@@ -1,18 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { MetodosPagos } from './entities/metodo-pago.entity';
-import { CreateMetodosPagosDto } from './dto/create-metodo-pago.dto';
+import { MetodoPago } from './entities/metodo-pago.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MetodosPagosNotFoundException } from './error/metodo-pago-not-found.exception';
-import { UpdateMetodosPagosDto } from './dto/update-metodo-pago.dto';
+import { UpdateMetodosPagosDto } from '../metodo-pago/dto/update-metodo-pago.dto';
 
 @Injectable()
-export class MetodosPagosService {
+export class MetodoPagoService {
     constructor(
-        @InjectRepository(MetodosPagos) private readonly metodospagosRepository: Repository<MetodosPagos>
+        @InjectRepository(MetodoPago) private readonly metodospagosRepository: Repository<MetodoPago>
     ) { }
 
-    async paginate(page: number, perPage: number): Promise<MetodosPagos[]> {
+    async paginate(page: number, perPage: number): Promise<MetodoPago[]> {
         const offset = (page - 1) * perPage;
 
         const metodosopagos = await this.metodospagosRepository.createQueryBuilder('metodosopagos')
@@ -23,12 +22,7 @@ export class MetodosPagosService {
         return metodosopagos;
     }
 
-    async create(createMetodosPagosDto: CreateMetodosPagosDto): Promise<MetodosPagos> {
-        const metodospagos = new MetodosPagos(createMetodosPagosDto);
-        return await this.metodospagosRepository.save(metodospagos);
-    }
-
-    async findOne(id: number): Promise<MetodosPagos> {
+    async findOne(id: number): Promise<MetodoPago> {
         const metodospagos = await this.metodospagosRepository.createQueryBuilder('metodospagos')
             .where('metodospagos.id = :id', { id })
             .getOne();
@@ -40,7 +34,7 @@ export class MetodosPagosService {
         return metodospagos;
     }
 
-    async update(id: number, updateMetodosPagosDto: UpdateMetodosPagosDto): Promise<MetodosPagos> {
+    async update(id: number, updateMetodosPagosDto: UpdateMetodosPagosDto): Promise<MetodoPago> {
         const metodospagos = await this.metodospagosRepository.createQueryBuilder('metodospagos')
             .where('metodospagos.id = :id', { id })
             .getOne();

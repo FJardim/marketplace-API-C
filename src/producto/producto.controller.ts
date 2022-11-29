@@ -54,6 +54,11 @@ export class ProductoController {
         return await this.productoService.findOne(+id);
     }
 
+    @Get('/producto-detalles/:id')
+    async findOneProductoDetalles(@Param('id') id: string): Promise<ProductoDetalles> {
+        return await this.productoService.findOneProductoDetalles(+id);
+    }
+
     @Put(':id')
     async update(
         @Body() updateProductoDto: UpdateProductoDto,
@@ -66,10 +71,4 @@ export class ProductoController {
     async delete(@Param('id') id: string): Promise<void> {
         await this.productoService.delete(+id);
     }
-
-    @Get('/producto-detalles/:id')
-    async findOneProductoDetalles(@Param('id') id: string): Promise<ProductoDetalles> {
-        return await this.productoService.findOneProductoDetalles(+id);
-    }
-
 }

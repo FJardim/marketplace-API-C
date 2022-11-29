@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TiendaRating } from './entities/tienda-rating.entity';
-import { TiendaRatingNoEncontrada } from './error/tienda-rating-no-encontrada.exception';
+import { TiendaRating } from '../tienda-rating/entities/tienda-rating.entity';
+import { TiendaRatingNoEncontrada } from '../tienda-rating/error/tienda-rating-no-encontrada.exception';
 import { Repository } from 'typeorm';
-import { CreateTiendaRatingDto } from './dto/create-tienda-rating.dto';
-import { UpdateTiendaRatingDto } from './dto/update-tienda-rating.dto';
+import { CreateTiendaRatingDto } from '../tienda-rating/dto/create-tienda-rating.dto';
+import { UpdateTiendaRatingDto } from '../tienda-rating/dto/update-tienda-rating.dto';
 
 @Injectable()
 export class TiendaRatingService {

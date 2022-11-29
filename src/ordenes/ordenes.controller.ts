@@ -3,6 +3,8 @@ import { Ordenes } from './entities/ordenes.entity';
 import { OrdenesService } from './ordenes.service';
 import { CreateOrdenesDto } from './dto/create-ordenes.dto';
 import { UpdateOrdenesDto } from './dto/update-ordenes.dto';
+import { CreateOrdenItemsDto } from './dto/create-orden-items.dto';
+import { OrdenItems } from './entities/orden-items.entity';
 
 @Controller('ordenes')
 export class OrdenesController {
@@ -20,8 +22,22 @@ export class OrdenesController {
     async create(
         @Body() createOrdenesDto: CreateOrdenesDto,
     ): Promise<Ordenes> {
-        console.log(createOrdenesDto);
         return await this.ordenesService.create(createOrdenesDto);
+    }
+
+    @Get('/orden-items')
+    async paginateOrdenItems(
+        @Query('page') page: string = "1",
+        @Query('perPage') perPage: string = "10",
+    ): Promise<OrdenItems[]> {
+        return await this.ordenesService.paginateOrdenItems(+page, +perPage);
+    }
+
+    @Post('/orden-items')
+    async createOrdenItems(
+        @Body() createOrdenItemsDto: CreateOrdenItemsDto,
+    ): Promise<OrdenItems> {
+        return await this.ordenesService.createOrdenItems(createOrdenItemsDto);
     }
 
     @Get(':id')
