@@ -7,6 +7,7 @@ import { CreateOrdenesDto } from './dto/create-ordenes.dto';
 import { UpdateOrdenesDto } from './dto/update-ordenes.dto';
 import { CreateOrdenItemsDto } from './dto/create-orden-items.dto';
 import { OrdenItems } from './entities/orden-items.entity';
+import { OrdenItemsNotFoundException } from './error/orden-itms-not-found.exception';
 
 @Injectable()
 export class OrdenesService {
@@ -84,5 +85,15 @@ export class OrdenesService {
         }
 
         await this.ordenesRepository.softRemove(ordenes);
+    }
+
+    async findOneOrdenItems(id: number): Promise<OrdenItems> {
+        const ordenItems = await this.ordenItemsRepository.createQueryBuilder('ordenitems')
+            .where('ordenItems.id = :id', { id })
+            .getOne();
+        if (!ordenItems) {
+            throw new OrdenItemsNotFoundException();
+        }
+        return ordenItems;
     }
 }

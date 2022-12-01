@@ -18,9 +18,11 @@ import { ClientesModule } from './clientes/clientes.module';
 import { OrdenesModule } from './ordenes/ordenes.module';
 import { TiendaRatingModule } from './tienda-rating/tienda-rating.module';
 import { ClientesRatingModule } from './clientes-rating/clientes-rating.module';
-import { MetodoPagoController } from './metodo-pago/metodo-pago.controller';
 import { MetodoPagoModule } from './metodo-pago/metodo-pago.module';
 import { OrdenesStatusModule } from './ordenes-status/ordenes-status.module';
+import { NotificacionModule } from './notificacion/notificacion.module';
+import { NotificacionUsuarioModule } from './notificacion-usuario/notificacion-usuario.module';
+import { DeliveryTypeMetodoModule } from './delivery-type-metodo/delivery-type-metodo.module';
 
 @Module({
   imports: [
@@ -54,6 +56,9 @@ import { OrdenesStatusModule } from './ordenes-status/ordenes-status.module';
     OrdenesModule,
     MetodoPagoModule,
     OrdenesStatusModule,
+    NotificacionModule,
+    NotificacionUsuarioModule,
+    DeliveryTypeMetodoModule,
   ],
   controllers: [AppController],
   providers: [AppService],

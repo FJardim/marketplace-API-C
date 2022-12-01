@@ -4,4 +4,5 @@ import { Exclude, Expose } from "class-transformer";
 export class CreateMetodosPagosDto {
     @Expose()
     public readonly nombre: string;
+
 }
