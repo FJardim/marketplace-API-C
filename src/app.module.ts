@@ -25,7 +25,6 @@ import { NotificacionUsuarioModule } from './notificacion-usuario/notificacion-u
 import { DeliveryTypeMetodoModule } from './delivery-type-metodo/delivery-type-metodo.module';
 import { DeliveryMetodoModule } from './delivery-metodo/delivery-metodo.module';
 import { DeliveryNotasModule } from './delivery-notas/delivery-notas.module';
-import { DeliveryRangosService } from './delivery-rangos/delivery-rangos.service';
 import { DeliveryRangosModule } from './delivery-rangos/delivery-rangos.module';
 import { DeliveryZonasController } from './delivery-zonas/delivery-zonas.controller';
 import { DeliveryZonasModule } from './delivery-zonas/delivery-zonas.module';
@@ -70,7 +69,7 @@ import { DeliveryZonasModule } from './delivery-zonas/delivery-zonas.module';
     DeliveryRangosModule,
     DeliveryZonasModule,
   ],
-  controllers: [AppController, DeliveryZonasController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule { }
