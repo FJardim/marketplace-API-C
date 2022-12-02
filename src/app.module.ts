@@ -23,6 +23,12 @@ import { OrdenesStatusModule } from './ordenes-status/ordenes-status.module';
 import { NotificacionModule } from './notificacion/notificacion.module';
 import { NotificacionUsuarioModule } from './notificacion-usuario/notificacion-usuario.module';
 import { DeliveryTypeMetodoModule } from './delivery-type-metodo/delivery-type-metodo.module';
+import { DeliveryMetodoModule } from './delivery-metodo/delivery-metodo.module';
+import { DeliveryNotasModule } from './delivery-notas/delivery-notas.module';
+import { DeliveryRangosService } from './delivery-rangos/delivery-rangos.service';
+import { DeliveryRangosModule } from './delivery-rangos/delivery-rangos.module';
+import { DeliveryZonasController } from './delivery-zonas/delivery-zonas.controller';
+import { DeliveryZonasModule } from './delivery-zonas/delivery-zonas.module';
 
 @Module({
   imports: [
@@ -59,8 +65,12 @@ import { DeliveryTypeMetodoModule } from './delivery-type-metodo/delivery-type-m
     NotificacionModule,
     NotificacionUsuarioModule,
     DeliveryTypeMetodoModule,
+    DeliveryMetodoModule,
+    DeliveryNotasModule,
+    DeliveryRangosModule,
+    DeliveryZonasModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, DeliveryZonasController],
   providers: [AppService],
 })
 export class AppModule { }
