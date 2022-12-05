@@ -5,12 +5,19 @@ import { CreateDeliveryMetodoDto } from './dto/create-delivery-metodo.dto';
 import { DeliveryMetodo } from './entities/delivery-metodo.entity';
 import { DeliveryMetodoNotFoundException } from './error/delivery-metodo-not-found-exception';
 import { UpdateDeliveryMetodoDto } from './dto/update-delivery-metodo.dto';
+import { DeliveryRangos } from './entities/delivery-rango.entity';
+import { CreateDeliveryRangosDto } from './dto/create_delivery-rangos.dto';
+import { CreateDeliveryZonasDto } from './dto/create-delivery-zonas.dto';
+import { DeliveryZonas } from './entities/delivery-zonas.entity';
+import { DeliveryZonasNotFoundException } from './error/delivery-zonas-not-found-exception';
+import { UpdateDeliveryZonasDto } from './dto/update-delivery-zonas.dto';
 
 @Injectable()
 export class DeliveryMetodoService {
     constructor(
-        @InjectRepository(DeliveryMetodo)
-        private readonly deliveryMetodoRepository: Repository<DeliveryMetodo>,
+        @InjectRepository(DeliveryMetodo) private readonly deliveryMetodoRepository: Repository<DeliveryMetodo>,
+        @InjectRepository(DeliveryRangos) private readonly deliveryRangosRepository: Repository<DeliveryRangos>,
+        @InjectRepository(DeliveryZonas) private readonly deliveryZonasRepository: Repository<DeliveryZonas>,
     ) { }
     async paginate(page: number, perPage: number): Promise<DeliveryMetodo[]> {
         const offset = (page - 1) * perPage;
@@ -24,10 +31,40 @@ export class DeliveryMetodoService {
         return deliveryMetodo;
     }
 
+    async paginateDeliveryRangos(page: number, perPage: number): Promise<DeliveryRangos[]> {
+        const offset = (page - 1) * perPage;
+        const deliveryRangos = await this.deliveryRangosRepository.createQueryBuilder('deliveryRangos')
+            .take(perPage)
+            .skip(offset)
+            .getMany();
+        return deliveryRangos;
+    }
+
+    async paginateDeliveryZonas(page: number, perPage: number): Promise<DeliveryZonas[]> {
+        const offset = (page - 1) * perPage;
+        const deliveryZonas = await this.deliveryZonasRepository.createQueryBuilder('deliveryZonas')
+            .take(perPage)
+            .skip(offset)
+            .getMany();
+        return deliveryZonas;
+    }
+
     async create(createDeliveryMetodoDto: CreateDeliveryMetodoDto): Promise<DeliveryMetodo> {
         const deliveryMetodo = new DeliveryMetodo(createDeliveryMetodoDto);
 
         return await this.deliveryMetodoRepository.save(deliveryMetodo);
+    }
+
+    async createDeliveryRangos(createDeliveryRangosDto: CreateDeliveryRangosDto): Promise<DeliveryRangos> {
+        const deliveryRangos = new DeliveryRangos(createDeliveryRangosDto);
+
+        return await this.deliveryRangosRepository.save(deliveryRangos);
+    }
+
+    async createDeliveryZonas(createDeliveryZonasDto: CreateDeliveryZonasDto): Promise<DeliveryZonas> {
+        const deliveryZonas = new DeliveryZonas(createDeliveryZonasDto);
+
+        return await this.deliveryZonasRepository.save(deliveryZonas);
     }
 
     async findOne(id: number): Promise<DeliveryMetodo> {
@@ -35,12 +72,23 @@ export class DeliveryMetodoService {
             .createQueryBuilder('deliveryMetodo')
             .where('deliveryMetodo.id = :id', { id })
             .getOne();
-        console.log({ id, deliveryMetodo });
         if (!deliveryMetodo) {
             throw new DeliveryMetodoNotFoundException();
         }
 
         return deliveryMetodo;
+    }
+
+    async findOneDeliveryZonas(id: number): Promise<DeliveryZonas> {
+        const deliveryZonas = await this.deliveryZonasRepository
+            .createQueryBuilder('deliveryZonas')
+            .where('deliveryZonas.id = :id', { id })
+            .getOne();
+        if (!deliveryZonas) {
+            throw new DeliveryZonasNotFoundException();
+        }
+
+        return deliveryZonas;
     }
 
     async update(id: number, updateDeliveryMetodoDto: UpdateDeliveryMetodoDto): Promise<DeliveryMetodo> {
@@ -58,6 +106,21 @@ export class DeliveryMetodoService {
         return await this.deliveryMetodoRepository.save(deliveryMetodo);
     }
 
+    async updateZonas(id: number, updateDeliveryZonasDto: UpdateDeliveryZonasDto): Promise<DeliveryZonas> {
+        const deliveryZonas = await this.deliveryZonasRepository
+            .createQueryBuilder('marca')
+            .where('marca.id = :id', { id })
+            .getOne();
+
+        if (!deliveryZonas) {
+            throw new DeliveryZonasNotFoundException();
+        }
+
+        Object.assign(deliveryZonas, updateDeliveryZonasDto);
+
+        return await this.deliveryZonasRepository.save(deliveryZonas);
+    }
+
     async delete(id: number): Promise<void> {
         const deliveryMetodo = await this.deliveryMetodoRepository
             .createQueryBuilder('deliveryMetodo')
@@ -69,5 +132,18 @@ export class DeliveryMetodoService {
         }
 
         await this.deliveryMetodoRepository.softRemove(deliveryMetodo);
+    }
+
+    async deleteZonas(id: number): Promise<void> {
+        const deliveryZonas = await this.deliveryZonasRepository
+            .createQueryBuilder('deliveryZonas')
+            .where('deliveryZonas.id = :id', { id })
+            .getOne();
+        // 
+        if (!deliveryZonas) {
+            throw new DeliveryZonasNotFoundException();
+        }
+
+        await this.deliveryZonasRepository.softRemove(deliveryZonas);
     }
 }

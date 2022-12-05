@@ -18,7 +18,7 @@ export class DeliveryMetodo {
 
     @ManyToOne(() => DeliveryTypeMetodo)
     @JoinColumn({ name: 'delivery_metodo_type_codigo' })
-    public deliveryTypeMetodoCodigo: DeliveryTypeMetodo;
+    public deliveryTypeMetodo: DeliveryTypeMetodo;
 
     @Column({ name: 'id_tienda' })
     public id_tienda: string;
