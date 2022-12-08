@@ -9,8 +9,10 @@ import { DeliveryRangos } from './entities/delivery-rango.entity';
 import { CreateDeliveryRangosDto } from './dto/create_delivery-rangos.dto';
 import { CreateDeliveryZonasDto } from './dto/create-delivery-zonas.dto';
 import { DeliveryZonas } from './entities/delivery-zonas.entity';
+import { DeliveryZonasRangos } from './entities/delivery-zonas-de-rango.entity';
 import { DeliveryZonasNotFoundException } from './error/delivery-zonas-not-found-exception';
 import { UpdateDeliveryZonasDto } from './dto/update-delivery-zonas.dto';
+import { CreateDeliveryZonasRangosDto } from './dto/create-delivery-zona-de-rango.dto';
 
 @Injectable()
 export class DeliveryMetodoService {
@@ -18,6 +20,8 @@ export class DeliveryMetodoService {
         @InjectRepository(DeliveryMetodo) private readonly deliveryMetodoRepository: Repository<DeliveryMetodo>,
         @InjectRepository(DeliveryRangos) private readonly deliveryRangosRepository: Repository<DeliveryRangos>,
         @InjectRepository(DeliveryZonas) private readonly deliveryZonasRepository: Repository<DeliveryZonas>,
+        @InjectRepository(DeliveryZonasRangos) private readonly deliveryZonasRangosRepository: Repository<DeliveryZonasRangos>,
+
     ) { }
     async paginate(page: number, perPage: number): Promise<DeliveryMetodo[]> {
         const offset = (page - 1) * perPage;
@@ -49,6 +53,15 @@ export class DeliveryMetodoService {
         return deliveryZonas;
     }
 
+    async paginateDeliveryZonasRangos(page: number, perPage: number): Promise<DeliveryZonasRangos[]> {
+        const offset = (page - 1) * perPage;
+        const deliveryZonasRangos = await this.deliveryZonasRangosRepository.createQueryBuilder('deliveryZonasRango')
+            .take(perPage)
+            .skip(offset)
+            .getMany();
+        return deliveryZonasRangos;
+    }
+
     async create(createDeliveryMetodoDto: CreateDeliveryMetodoDto): Promise<DeliveryMetodo> {
         const deliveryMetodo = new DeliveryMetodo(createDeliveryMetodoDto);
 
@@ -65,6 +78,12 @@ export class DeliveryMetodoService {
         const deliveryZonas = new DeliveryZonas(createDeliveryZonasDto);
 
         return await this.deliveryZonasRepository.save(deliveryZonas);
+    }
+
+    async createDeliveryZonasRangos(createDeliveryZonasRangosDto: CreateDeliveryZonasRangosDto): Promise<DeliveryZonasRangos> {
+        const deliveryZonasRangos = new DeliveryZonasRangos(createDeliveryZonasRangosDto);
+
+        return await this.deliveryZonasRangosRepository.save(deliveryZonasRangos);
     }
 
     async findOne(id: number): Promise<DeliveryMetodo> {

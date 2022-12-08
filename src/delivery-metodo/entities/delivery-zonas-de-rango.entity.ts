@@ -1,10 +1,9 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { DeliveryTypeMetodo } from '../../delivery-type-metodo/entities/delivery-type-metodo.entity';
 import { DeliveryRangos } from "./delivery-rango.entity";
 import { DeliveryZonas } from './delivery-zonas.entity';
 
 @Entity({ name: 'delivery_zona_de_rango' })
-export class DeliveryZonaRangos {
+export class DeliveryZonasRangos {
     @PrimaryGeneratedColumn({ name: 'id' })
     public readonly id: number;
 
@@ -22,10 +21,10 @@ export class DeliveryZonaRangos {
     public delivery_zona_id: number;
 
     @ManyToOne(() => DeliveryZonas)
-    @JoinColumn({ name: 'delivery_zona_ids' })
+    @JoinColumn({ name: 'delivery_zona_id' })
     public deliveryZonas: DeliveryZonas;
 
-    constructor(data: Partial<DeliveryZonaRangos>) {
+    constructor(data: Partial<DeliveryZonasRangos>) {
         Object.assign(this, data);
     }
 }
