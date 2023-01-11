@@ -3,18 +3,22 @@ import { Admins } from './entities/admins.entity';
 import { CreateAdminsDto } from './dto/create-admins.dto';
 import { AdminsService } from './admins.service';
 import { UpdateAdminsDto } from './dto/update-admins.dto';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { Role } from '../usuario/enums/role.enum';
 
 @Controller('admins')
 export class AdminsController {
     constructor(private readonly adminsService: AdminsService) { }
 
     @Get()
-    async paginate(
-        @Query('page') page: string = "1",
-        @Query('perPage') perPage: string = "10",
-    ): Promise<Admins[]> {
-        return await this.adminsService.paginate(+page, +perPage);
-    }
+    @Roles(Role.ADMIN)
+    // @UseGuards(RolesGuard)
+    // async paginate(
+    //     @Query('page') page: string = "1",
+    //     @Query('perPage') perPage: string = "10",
+    // ): Promise<PaginacionResult<Admins>> {
+    //     return await this.adminsService.paginate(+page, +perPage);
+    // }
 
     @Post()
     async create(

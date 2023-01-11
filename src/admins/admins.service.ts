@@ -4,7 +4,8 @@ import { Admins } from './entities/admins.entity';
 import { AdministradorNotFoundException } from './error/admins-not-found.exception';
 import { UpdateAdminsDto } from './dto/update-admins.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { QueryBuilder, Repository } from 'typeorm';
+import { PaginacionResult } from '../soporte/paginacion/paginacion-result';
 
 @Injectable()
 export class AdminsService {
@@ -12,16 +13,19 @@ export class AdminsService {
         @InjectRepository(Admins) private readonly adminsRepository: Repository<Admins>
     ) { }
 
-    async paginate(page: number, perPage: number): Promise<Admins[]> {
-        const offset = (page - 1) * perPage;
+    // async paginate(page: number, perPage: number): Promise<PaginacionResult<Admins>> {
+    //     const offset = (page - 1) * perPage;
 
-        const admins = await this.adminsRepository.createQueryBuilder('admins')
-            .take(perPage)
-            .skip(offset)
-            .getMany();
+    //     const admins = await this.adminsRepository.createQueryBuilder('admins')
+    //         .take(perPage)
+    //         .skip(offset)
+    //         .getMany();
 
-        return admins;
-    }
+    //     const [Admins, total] = await QueryBuilder.getManyAndCount();
+
+
+    //     return new PaginacionResult(admins, total, perPage);
+    // }
 
     async create(createAdminsDto: CreateAdminsDto): Promise<Admins> {
         const admins = new Admins(createAdminsDto);

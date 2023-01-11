@@ -9,6 +9,9 @@ export class Clientes {
     @Column({ name: 'nombre' })
     public nombre: string;
 
+    @Column({ name: 'apellido' })
+    public apellido: string;
+
     @Column({ name: 'telefono' })
     public telefono: string;
 

@@ -9,6 +9,9 @@ export class CreateClientesDto {
     public readonly nombre: string;
 
     @Expose()
+    public readonly apellido: string;
+
+    @Expose()
     public readonly telefono: string;
 
     @Expose()

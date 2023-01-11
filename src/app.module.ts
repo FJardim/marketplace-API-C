@@ -25,9 +25,18 @@ import { NotificacionUsuarioModule } from './notificacion-usuario/notificacion-u
 import { DeliveryTypeMetodoModule } from './delivery-type-metodo/delivery-type-metodo.module';
 import { DeliveryMetodoModule } from './delivery-metodo/delivery-metodo.module';
 import { DeliveryNotasModule } from './delivery-notas/delivery-notas.module';
+import { AuthService } from './auth/auth.service';
+import { AuthController } from './auth/auth.controller';
+import { AuthModule } from './auth/auth.module';
+import { UsuarioStatusModule } from './usuario-status/usuario-status.module';
+import { SoporteModule } from './soporte/soporte.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     CategoriesModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -37,6 +46,7 @@ import { DeliveryNotasModule } from './delivery-notas/delivery-notas.module';
       password: '',
       database: 'marketplace_cliente',
       entities: ['dist/**/*.entity.js'],
+      autoLoadEntities: true,
       synchronize: false,
       // logging: true
     }),
@@ -63,6 +73,9 @@ import { DeliveryNotasModule } from './delivery-notas/delivery-notas.module';
     DeliveryTypeMetodoModule,
     DeliveryMetodoModule,
     DeliveryNotasModule,
+    AuthModule,
+    UsuarioStatusModule,
+    SoporteModule,
   ],
   controllers: [AppController],
   providers: [AppService],
