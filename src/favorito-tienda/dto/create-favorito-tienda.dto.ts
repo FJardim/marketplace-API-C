@@ -1,9 +1,9 @@
 import { Exclude, Expose } from "class-transformer";
 
 @Exclude()
-export class CreateFavoritosProductsDto {
+export class CreateFavoritosTiendaDto {
     @Expose()
-    public readonly producto_id: number;
+    public readonly tienda_id: number;
 
     @Expose()
     public readonly cliente_id: number;

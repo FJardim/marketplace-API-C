@@ -31,6 +31,8 @@ import { AuthModule } from './auth/auth.module';
 import { UsuarioStatusModule } from './usuario-status/usuario-status.module';
 import { SoporteModule } from './soporte/soporte.module';
 import { ConfigModule } from '@nestjs/config';
+import { FavoritoTiendaModule } from './favorito-tienda/favorito-tienda.module';
+import { FavoritoModule } from './favorito/favorito.module';
 
 @Module({
   imports: [
@@ -76,6 +78,8 @@ import { ConfigModule } from '@nestjs/config';
     AuthModule,
     UsuarioStatusModule,
     SoporteModule,
+    FavoritoModule,
+    FavoritoTiendaModule,
   ],
   controllers: [AppController],
   providers: [AppService],

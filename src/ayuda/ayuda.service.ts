@@ -5,12 +5,16 @@ import { CreateAyudaDto } from './dto/create-ayuda.dto';
 import { UpdateAyudaDto } from './dto/updates-ayuda.dto';
 import { Ayuda } from './entities/ayuda.entity';
 import { AyudaNotFoundException } from './error/ayuda-not-found.exception';
+import { Topico } from '../topico/entities/topico.entity';
+import { TopicoNotFoundException } from 'src/topico/error/topico-not-found.exception';
 
 @Injectable()
 export class AyudaService {
   constructor(
     @InjectRepository(Ayuda)
     private readonly ayudaRepository: Repository<Ayuda>,
+    @InjectRepository(Topico)
+    private readonly topicoRepository: Repository<Topico>,
   ) { }
   async paginate(page: number, perPage: number): Promise<Ayuda[]> {
     const offset = (page - 1) * perPage;
@@ -24,7 +28,14 @@ export class AyudaService {
     return ayuda;
   }
 
+  //crear ayuda y comparacion si existe el topico primero
   async create(createAyudaDto: CreateAyudaDto): Promise<Ayuda> {
+    const topico = await this.topicoRepository.findOne({
+      where: { id: createAyudaDto.id_topico }
+    });
+    if (!topico) {
+      throw new TopicoNotFoundException();
+    }
     const ayuda = new Ayuda(createAyudaDto);
     return await this.ayudaRepository.save(ayuda);
   }
