@@ -1,8 +1,11 @@
-import { Controller, Body, Post, Get, Put, Delete, Param, Query } from '@nestjs/common';
+import { Controller, Body, Post, Get, Put, Delete, Param, Query, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Role } from 'src/usuario/enums/role.enum';
 import { CreateTopicoDto } from './dto/create-topico.dto';
 import { UpdateTopicoDto } from './dto/updated-topico.dto';
 import { Topico } from './entities/topico.entity';
 import { TopicoService } from './topico.service';
+import { Roles } from '../auth/decorators/roles.decorator';
 
 @Controller('topico')
 export class TopicoController {
@@ -17,10 +20,13 @@ export class TopicoController {
     }
 
     @Post()
+    @Roles(Role.ADMIN)
+    @UseInterceptors(FileInterceptor('logo'))
     async create(
         @Body() createTopicoDto: CreateTopicoDto,
+        @UploadedFile() file: Express.Multer.File
     ): Promise<Topico> {
-        return await this.topicoService.create(createTopicoDto);
+        return await this.topicoService.create(createTopicoDto, file);
     }
 
     @Get(':id')
@@ -29,6 +35,8 @@ export class TopicoController {
     }
 
     @Put(':id')
+    @Roles(Role.ADMIN)
+    @UseInterceptors(FileInterceptor('logo'))
     async update(
         @Body() updateTopicoDto: UpdateTopicoDto,
         @Param('id') id: string
@@ -37,6 +45,7 @@ export class TopicoController {
     }
 
     @Delete(':id')
+    @Roles(Role.ADMIN)
     async delete(@Param('id') id: string): Promise<void> {
         return await this.topicoService.delete(+id);
     }

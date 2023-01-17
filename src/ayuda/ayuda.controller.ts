@@ -13,8 +13,9 @@ export class AyudaController {
     async paginate(
         @Query('page') page: string = "1",
         @Query('perPage') perPage: string = "10",
+        @Query('id_topico') id_topico: string,
     ): Promise<Ayuda[]> {
-        return await this.ayudaService.paginate(+page, +perPage);
+        return await this.ayudaService.paginate(+page, +perPage, +id_topico);
     }
 
     @Post()

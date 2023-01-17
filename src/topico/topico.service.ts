@@ -22,8 +22,12 @@ export class TopicoService {
         return topico;
     }
 
-    async create(createTopicoDto: CreateTopicoDto): Promise<Topico> {
-        const topico = new Topico(createTopicoDto);
+    async create(createTopicoDto: CreateTopicoDto, logo: Express.Multer.File): Promise<Topico> {
+        const topico = new Topico({
+            ...createTopicoDto,
+            logo: logo.path,
+        });
+
         return await this.topicoRepository.save(topico);
     }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, QueryBuilder } from 'typeorm';
 import { CreateAyudaDto } from './dto/create-ayuda.dto';
 import { UpdateAyudaDto } from './dto/updates-ayuda.dto';
 import { Ayuda } from './entities/ayuda.entity';
@@ -16,14 +16,18 @@ export class AyudaService {
     @InjectRepository(Topico)
     private readonly topicoRepository: Repository<Topico>,
   ) { }
-  async paginate(page: number, perPage: number): Promise<Ayuda[]> {
+
+  async paginate(page: number, perPage: number, id_topico: number): Promise<Ayuda[]> {
     const offset = (page - 1) * perPage;
 
-    const ayuda = await this.ayudaRepository
+    const queryBuilder = this.ayudaRepository
       .createQueryBuilder('ayuda')
       .take(perPage)
       .skip(offset)
-      .getMany();
+
+    if (id_topico) queryBuilder.andWhere('ayuda.id_topico = :id_topico', { id_topico })
+
+    const ayuda = await queryBuilder.getMany();
 
     return ayuda;
   }
