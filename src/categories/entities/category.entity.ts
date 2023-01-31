@@ -13,7 +13,7 @@ export class Category {
   public imgCategoria: string;
 
   @Column({ name: 'id_tienda' })
-  public id_tienda: number;
+  public idtienda: number;
 
   @ManyToOne(() => Tienda)
   @JoinColumn({ name: 'id_tienda' })

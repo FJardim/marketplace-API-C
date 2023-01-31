@@ -30,7 +30,7 @@ export class ProductoCategoriaService {
             .createQueryBuilder('productoCategoria')
             .where('productoCategoria.id = :id', { id })
             .getOne();
-        console.log({ id, productoCategoria });
+        // console.log({ id, productoCategoria });
         if (!productoCategoria) {
             throw new ProductoCategoriaNotFoundException();
         }

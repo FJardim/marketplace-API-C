@@ -1,8 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseInterceptors } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { Category } from './entities/category.entity';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from '../usuario/enums/role.enum';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('categories')
 export class CategoriesController {
@@ -17,6 +20,8 @@ export class CategoriesController {
     }
 
     @Post()
+    @Roles(Role.ADMIN)
+    @UseInterceptors(FileInterceptor('imgCategoria'))
     async create(
         @Body() createCategoryDto: CreateCategoryDto,
     ): Promise<Category> {
@@ -29,6 +34,8 @@ export class CategoriesController {
     }
 
     @Put(':id')
+    @Roles(Role.ADMIN)
+    @UseInterceptors(FileInterceptor('imgCategoria'))
     async update(
         @Body() updateCategoryDto: UpdateCategoryDto,
         @Param('id') id: string

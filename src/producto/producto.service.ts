@@ -9,22 +9,35 @@ import { ProductoImagen } from './entities/producto-imagen.entity';
 import { CreateProductoImagenDto } from './dto/create-producto-imagen.dto';
 import { ProductoDetalles } from './entities/producto-detalle.entity';
 import { CreateProductoDetallesDto } from './dto/create-producto-detalle.dto';
+import { ProductoCategoria } from '../producto-categoria/entities/producto-categoria.entity';
+import { ProductPaginationFiltersDto } from './dto/product-pagination-filters.dto';
 
 @Injectable()
 export class ProductoService {
     constructor(@InjectRepository(Producto) private readonly productoRepository: Repository<Producto>,
         @InjectRepository(ProductoImagen) private readonly productoImagenRepository: Repository<ProductoImagen>,
-        @InjectRepository(ProductoDetalles) private readonly productoDetallesRepository: Repository<ProductoDetalles>
+        @InjectRepository(ProductoDetalles) private readonly productoDetallesRepository: Repository<ProductoDetalles>,
+        @InjectRepository(ProductoCategoria) private readonly productoCategoriaRepository: Repository<ProductoCategoria>
+
     ) { }
 
-    async paginate(page: number, perPage: number): Promise<Producto[]> {
+    async paginate({ page, perPage, tiendaId, descuento, maxPrecio }: ProductPaginationFiltersDto): Promise<Producto[]> {
         const offset = (page - 1) * perPage;
-        const producto = await this.productoRepository.createQueryBuilder('producto')
+        const queryBuilder = this.productoRepository.createQueryBuilder('producto')
             .leftJoinAndSelect('producto.productoImagenes', 'productoImagen')
             .leftJoinAndSelect('producto.productoDetalles', 'productoDetalles')
             .take(perPage)
             .skip(offset)
-            .getMany();
+
+        if (tiendaId) queryBuilder.andWhere('producto.tiendas_id = :tiendaId', { tiendaId })
+
+        if (descuento) queryBuilder.andWhere('productoDetalles.descuento != 0', { descuento })
+
+        if (maxPrecio) {
+            queryBuilder.andWhere('productoDetalles.precio <= :maxPrecio', { maxPrecio })
+        }
+
+        const producto = await queryBuilder.getMany();
 
         return producto;
     }
@@ -38,7 +51,12 @@ export class ProductoService {
     }
     async create(createProductoDto: CreateProductoDto): Promise<Producto> {
         const producto = new Producto(createProductoDto);
-        return await this.productoRepository.save(producto);
+        const nuevoProducto = await this.productoRepository.save(producto);
+        for (const idCategoria of createProductoDto.categoria_ids) {
+            const categoria = new ProductoCategoria({ categoria_id: idCategoria, producto_id: producto.id });
+            const productoCategoria = await this.productoCategoriaRepository.save(categoria)
+        }
+        return producto;
     }
 
     async findOne(id: number): Promise<Producto> {

@@ -12,6 +12,9 @@ export class CreateProductoDetallesDto {
     public readonly precio: number;
 
     @Expose()
+    public readonly descuento: number;
+
+    @Expose()
     public readonly cantidad: number;
 
     @Expose()

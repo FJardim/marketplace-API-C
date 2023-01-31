@@ -16,6 +16,9 @@ export class ProductoDetalles {
     @Column({ name: 'precio' })
     public precio: number;
 
+    @Column({ name: 'descuento' })
+    public descuento: number;
+
     @Column({ name: 'cantidad' })
     public cantidad: number;
 

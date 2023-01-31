@@ -18,6 +18,9 @@ export class CreateProductoDto {
     public readonly tiendas_id: number;
 
     @Expose()
+    public readonly categoria_ids: number[];
+
+    @Expose()
     public readonly rating: number;
 
 }

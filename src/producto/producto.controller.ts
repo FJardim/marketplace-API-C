@@ -7,6 +7,9 @@ import { CreateProductoImagenDto } from './dto/create-producto-imagen.dto';
 import { ProductoImagen } from './entities/producto-imagen.entity';
 import { ProductoDetalles } from './entities/producto-detalle.entity';
 import { CreateProductoDetallesDto } from './dto/create-producto-detalle.dto';
+import { plainToInstance } from 'class-transformer';
+import { ProductPaginationFiltersDto } from './dto/product-pagination-filters.dto';
+import { PlainToInstancePipe } from 'src/soporte/pipes/plain-to-instance.pipe';
 
 @Controller('producto')
 export class ProductoController {
@@ -14,10 +17,10 @@ export class ProductoController {
 
     @Get()
     async paginate(
-        @Query('page') page: string = "1",
-        @Query('perPage') perPage: string = "10",
+        @Query(new PlainToInstancePipe(ProductPaginationFiltersDto)) filters: ProductPaginationFiltersDto
     ): Promise<Producto[]> {
-        return await this.productoService.paginate(+page, +perPage);
+        console.log(filters)
+        return await this.productoService.paginate(filters);
     }
 
     @Get('/producto-detalles')

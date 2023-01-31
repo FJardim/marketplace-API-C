@@ -35,7 +35,7 @@ export class TopicoService {
         const topico = await this.topicoRepository.createQueryBuilder('topico')
             .where('topico.id = :id', { id })
             .getOne();
-        console.log({ id, topico })
+        // console.log({ id, topico })
         if (!topico) {
             throw new TopicoNotFoundException();
         }
